@@ -1,12 +1,3 @@
-### GOALS for this assignment:
-# 1. Replicate figures 4a and 5a from this paper: https://www-cambridge-org.ccl.idm.oclc.org/core/services/aop-cambridge-core/content/view/7752ED69E1A60EFF1A242FDD36467226/S2049847014000260a.pdf/fiscal_governance_in_the_eurozone_how_effectively_does_the_stability_and_growth_pact_limit_governmental_debt_in_the_euro_countries.pdf?fbclid=IwAR2sBMjeSatfTKswVTkAo0woaqP2y8D-lF0XNW5pN8aAh95iYALN8V4ZHBc
-# 2. Conduct a sensitivity analysis for the donors and recipient country pools
-#    by removing one country from the synthetic control group
-# 3. Perform placebo-in-time and placebo-in-space tests to ensure the validity of
-#    the results.
-
-### Treatment: introduction of euro
-
 ### Declaring the required libraries
 library(Synth)
 
