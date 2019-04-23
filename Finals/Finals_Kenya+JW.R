@@ -126,10 +126,6 @@ dotchart(a[,1],pch=16)
 
 ### Placebo-in-time 
 d.data1 <- synth_func(scdata, "donor countries", pred, contr, c(1983:1995), c(1983:1995), 1111)
-# we can't really run placebos-in-time earlier than 1996 because there's no 
-# data for deltaLP, or the annual growth of labor productivity. We're using
-# 1997 here because it allows for 2 years before assessing the treatment compared
-# to just 1 if we used 1996.
 
 # Run the synthetic control analysis:
 synth.d.out1 <- synth(data.prep.obj = d.data1, method = "BFGS")
@@ -163,14 +159,11 @@ dotchart(b[,1],pch=16)
 
 ### Placebo-in-time
 r.data1 <- synth_func(scdata, "recipient countries", pred, contr, c(1983,1995), c(1983,1995), 2222)
-# the earliest entry for deltaLP is 1990 in this case, so we can use 1995. We can 
-# also change it to 1997 for consistency purposes. Weights for countries here
-# are different than the original treatment in 1999.
 synth.r.out1 <- synth(data.prep.obj = r.data1, method = "BFGS")
 graph_plot(synth.r.out1, r.data1, "Recipient Countries", "Synthetic Rec. Countries", 1995, 2)
 
 ### Placebo-in-space
-# Using Norway as the Placebo country
+# This section of code creates a plot for all the countries isted in the controls pool (contr).
 for (i in contr) { 
   cntry <- unique(scdata$country[scdata$ccode == i])
   tmp <- setdiff(contr, c(i,sort(unique(scdata$ccode[scdata$eu==0 & scdata$oecd==0]))))
@@ -178,8 +171,7 @@ for (i in contr) {
   ps.synth.out <- synth(data.prep.obj = ps.data, method = "BFGS")
   graph_plot(ps.synth.out, ps.data, cntry, paste("Synthetic",cntry), 1999, 3)
 }
-# This section of code literally just creates a plot for all the countries
-# listed in the controls pool (contr).
+
 
 ############## SENSITIVITY TESTS ###############
 
@@ -194,7 +186,7 @@ for (i in contr) {
 
 # For recipient countries
 # Since Canada is the only real country that was used to construct the synthetic recipient
-# countries, we measure the impact of removing canada.
+# unit, we measure the impact of removing canada.
 tmp <- setdiff(contr, c(20,sort(unique(scdata$ccode[scdata$eu==0 & scdata$oecd==0]))))
 ps.data <- synth_func(scdata, "recipient countries", pred, tmp, c(1983:1998), c(1983:1999), 2222)
 ps.synth.out <- synth(data.prep.obj = ps.data, method = "BFGS")
